@@ -1,86 +1,81 @@
 # Brazil State Trade Analysis
-A structural and econometric analysis of Brazil’s state-level export performance, integrating trade theory, panel data modeling, and reproducible, production-oriented data engineering to evaluate competitiveness, diversification, and structural determinants of trade outcomes.
+
+Analysis of Brazil’s state-level exports and imports using trade indicators, econometric modeling, and dashboards.
+
+---
 
 ## Technical Stack
-- Python (pandas, statsmodels, scikit-learn)  
+- Python (pandas, statsmodels)
 - SQL  
 - Power BI  
-- Panel econometrics  
-- Clustering & diagnostics
+- Econometrics  
 
-## Project Scope:
-- State-level panel dataset (multi-year)
-- Structural export indicators (concentration & specialization)
-- Econometric modeling (cross-section + panel)
-- Residual-based performance diagnostics
-- Policy-oriented Power BI dashboards
+---
+
+## Project Scope
+- State-level trade dataset (multi-year)  
+- Export and import indicators  
+- Descriptive and econometric analysis  
+- State performance comparison  
+- Dashboards  
+
+---
 
 ## Research Questions
-- What structural factors explain variation in state-level export performance?
-- Are Brazilian states overly dependent on specific export sectors?
-- Which states outperform expectations given their economic fundamentals?
-- How sensitive are exports to macroeconomic conditions?
-- What structural patterns emerge from clustering and segmentation analysis?
+- How do exports and imports vary across Brazilian states?
+- Which states depend on specific export sectors?
+- Which states perform above or below model predictions?
+- How have trade patterns changed over time?
+
+---
 
 ## Methodological Components
-- Data Engineering: cleaning, harmonization, panel construction, transformations  
-- Trade Structure Metrics: HHI, RCA, export per capita, trade balance  
-- Econometric Modeling: OLS, fixed effects, diagnostics (VIF, residual analysis)  
-- Advanced Analytics: Cook’s distance, k-means clustering, simulations  
-- Visualization: Interactive Power BI dashboards
+- Data cleaning and harmonization  
+- Construction of trade indicators (exports, imports, trade balance)  
+- Export concentration metrics (HHI)  
+- Cross-sectional and panel regression models  
+- Residual analysis  
+- Power BI dashboards  
 
+---
 
 ## Workflow
-1. Problem Framing
-    - Define dependent and structural control variables
-    - Establish theoretical framework (trade competitiveness & diversification)
 
-2. Data Engineering
-    - Source integration (COMEX, IBGE, Central Bank)
-    - ETL pipelines in Python
-    - SQL-based panel dataset construction
-    - Log transformations and lag structures
+1. **Data Collection**
+   - Download trade data by state  
+   - Gather GDP and population data  
 
-3. Feature Construction
-    - Herfindahl–Hirschman Index (Export Concentration)
-    - Revealed Comparative Advantage (Sector Specialization)
-    - Export per capita
-    - Trade balance indicators
-    - Structural productivity controls
+2. **Data Preparation**
+   - Cleaning and standardization  
+   - Panel dataset construction  
+   - Log transformations  
 
-4. Econometric Modeling
-    - Cross-sectional OLS
-    - Fixed effects panel models
-    - Robustness checks
-    - Multicollinearity diagnostics (VIF)
-    - Residual-based performance scoring
+3. **Indicator Construction**
+   - Export per capita  
+   - Trade balance  
+   - Export concentration (HHI)  
 
-5. Advanced Analytics
-    - Cook’s distance (influential observations)
-    - K-means clustering (structural segmentation)
-    - Predictive simulations
+4. **Econometric Analysis**
+   - Cross-sectional OLS  
+   - Fixed effects panel models  
+   - Diagnostic checks  
 
-6. Visualization & Policy Translation
-    - Interactive Power BI dashboards
-    - Structural comparison tools
-    - Executive summary view for decision-makers
+5. **Visualization**
+   - State comparisons  
+   - Structural indicators  
+   - Power BI dashboard  
 
-## Structural Indicators
-- HHI -> Measure export concentration and vulnerability
-- RCA -> Identify sector-level specialization
-- Residual Score -> Detect over- and under-performance
-- Cluster Assignment -> Structural segmentation of states
-
+---
 
 ## Data Sources
-### Primary trade and macroeconomic data sourced from:
-- ComexStat
-- Instituto Brasileiro de Geografia e Estatística (IBGE)
-- Banco Central do Brasil
+- ComexStat  
+- IBGE  
+
+---
 
 ## Key Outputs
-- Structured state-level panel dataset (ready for replication)
-- Export concentration and specialization rankings
-- State performance scores (residual-based benchmarking)
-- Cluster-based structural segmentation
-- Executive Power BI dashboard for policy simulation
+- State-level trade panel dataset  
+- Export and import rankings  
+- Concentration indicators  
+- Regression results  
+- Dashboard  

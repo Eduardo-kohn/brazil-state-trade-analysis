@@ -179,4 +179,61 @@ print(f"Original files backed up to: {backup_folder}")
 print("Done")
 
 #################### MUNICPAL EXPORTS ####################
+load_dotenv()
 
+DB_USER     = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+DB_HOST     = os.getenv("DB_HOST")
+DB_PORT     = os.getenv("DB_PORT")
+DB_NAME     = os.getenv("DB_NAME")
+
+engine = create_engine(f"postgresql+psycopg2://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}")
+
+##### CLEANING THE DATA #####
+folder_path_exp_mun = r"C:\Users\e_koh\Downloads\State Analysis\brazil-state-trade-analysis\Data\Exp Mun"
+
+# Create a timestamped backup folder
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+backup_folder = os.path.join(folder_path_exp_mun, f"backup_{timestamp}")
+os.makedirs(backup_folder, exist_ok=True)
+print(f"Backup folder created: {backup_folder}\n")
+
+total_rows = 0
+files_processed = 0
+
+for filename in sorted(os.listdir(folder_path_exp_mun)):
+    if not filename.endswith(('.csv', '.xlsx', '.xls')):
+        continue
+
+    match = re.search(r'EXP_(\d{4})_MUN', filename, re.IGNORECASE)
+    if not match:
+        print(f"Skipping {filename}: year not found in filename")
+        continue
+
+    year = int(match.group(1))
+    filepath = os.path.join(folder_path_exp_mun, filename)
+
+    # Backup original file before modifying
+    shutil.copy2(filepath, os.path.join(backup_folder, filename))
+
+    # Read, add year column, save back to file
+    if filename.endswith('.csv'):
+        df = pd.read_csv(filepath, encoding='latin1', sep=';')
+        df['ano'] = year
+        df.to_csv(filepath, index=False, encoding='latin1', sep=';')
+    else:
+        df = pd.read_excel(filepath)
+        df['ano'] = year
+        df.to_excel(filepath, index=False)
+
+    # Load into PostgreSQL incrementally
+    df.to_sql('exp_mun', engine, if_exists='append', index=False)
+
+    total_rows += len(df)
+    files_processed += 1
+    print(f"Updated & loaded: {filename} → ano = {year} ({len(df):,} rows)")
+    del df  # Free memory immediately
+
+print(f"\nLoaded {total_rows:,} rows across {files_processed} files into table 'exp_mun'")
+print(f"Original files backed up to: {backup_folder}")
+print("Done")

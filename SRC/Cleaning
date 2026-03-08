@@ -30,7 +30,6 @@ for filename in sorted(os.listdir(folder_path_imp)):
         print(f"Skipping {filename}: year not found in filename")
         continue
 
-    year = int(match.group(1))
     filepath = os.path.join(folder_path_imp, filename)
 
     # Backup original file before modifying
@@ -39,19 +38,15 @@ for filename in sorted(os.listdir(folder_path_imp)):
     # Read, add year column, save back to file
     if filename.endswith('.csv'):
         df = pd.read_csv(filepath, encoding='latin1', sep=';')
-        df['ano'] = year
-        df.to_csv(filepath, index=False, encoding='latin1', sep=';')
     else:
         df = pd.read_excel(filepath)
-        df['ano'] = year
-        df.to_excel(filepath, index=False)
 
     # Load into PostgreSQL incrementally
     df.to_sql('imp', engine, if_exists='append', index=False)
 
     total_rows += len(df)
     files_processed += 1
-    print(f"Updated & loaded: {filename} → ano = {year} ({len(df):,} rows)")
+    print(f"Loaded: {filename} ({len(df):,} rows)")
     del df  # Free memory immediately
 
 print(f"\nLoaded {total_rows:,} rows across {files_processed} files into table 'imp'")
@@ -59,8 +54,6 @@ print(f"Original files backed up to: {backup_folder}")
 print("Done")
 
 #################### EXPORTS ####################
-load_dotenv()
-
 DB_USER     = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST     = os.getenv("DB_HOST")
@@ -90,7 +83,6 @@ for filename in sorted(os.listdir(folder_path_exp)):
         print(f"Skipping {filename}: year not found in filename")
         continue
 
-    year = int(match.group(1))
     filepath = os.path.join(folder_path_exp, filename)
 
     # Backup original file before modifying
@@ -99,19 +91,15 @@ for filename in sorted(os.listdir(folder_path_exp)):
     # Read, add year column, save back to file
     if filename.endswith('.csv'):
         df = pd.read_csv(filepath, encoding='latin1', sep=';')
-        df['ano'] = year
-        df.to_csv(filepath, index=False, encoding='latin1', sep=';')
     else:
         df = pd.read_excel(filepath)
-        df['ano'] = year
-        df.to_excel(filepath, index=False)
 
     # Load into PostgreSQL incrementally
     df.to_sql('exp', engine, if_exists='append', index=False)
 
     total_rows += len(df)
     files_processed += 1
-    print(f"Updated & loaded: {filename} → ano = {year} ({len(df):,} rows)")
+    print(f"Loaded: {filename} ({len(df):,} rows)")
     del df  # Free memory immediately
 
 print(f"\nLoaded {total_rows:,} rows across {files_processed} files into table 'exp'")
@@ -119,8 +107,6 @@ print(f"Original files backed up to: {backup_folder}")
 print("Done")
 
 #################### MUNICIPAL IMPORTS ####################
-load_dotenv()
-
 DB_USER     = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST     = os.getenv("DB_HOST")
@@ -150,7 +136,6 @@ for filename in sorted(os.listdir(folder_path_imp_mun)):
         print(f"Skipping {filename}: year not found in filename")
         continue
 
-    year = int(match.group(1))
     filepath = os.path.join(folder_path_imp_mun, filename)
 
     # Backup original file before modifying
@@ -159,19 +144,15 @@ for filename in sorted(os.listdir(folder_path_imp_mun)):
     # Read, add year column, save back to file
     if filename.endswith('.csv'):
         df = pd.read_csv(filepath, encoding='latin1', sep=';')
-        df['ano'] = year
-        df.to_csv(filepath, index=False, encoding='latin1', sep=';')
     else:
         df = pd.read_excel(filepath)
-        df['ano'] = year
-        df.to_excel(filepath, index=False)
 
     # Load into PostgreSQL incrementally
     df.to_sql('imp_mun', engine, if_exists='append', index=False)
 
     total_rows += len(df)
     files_processed += 1
-    print(f"Updated & loaded: {filename} → ano = {year} ({len(df):,} rows)")
+    print(f"Loaded: {filename} ({len(df):,} rows)")
     del df  # Free memory immediately
 
 print(f"\nLoaded {total_rows:,} rows across {files_processed} files into table 'imp_mun'")
@@ -179,8 +160,6 @@ print(f"Original files backed up to: {backup_folder}")
 print("Done")
 
 #################### MUNICPAL EXPORTS ####################
-load_dotenv()
-
 DB_USER     = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST     = os.getenv("DB_HOST")
@@ -210,7 +189,6 @@ for filename in sorted(os.listdir(folder_path_exp_mun)):
         print(f"Skipping {filename}: year not found in filename")
         continue
 
-    year = int(match.group(1))
     filepath = os.path.join(folder_path_exp_mun, filename)
 
     # Backup original file before modifying
@@ -219,19 +197,15 @@ for filename in sorted(os.listdir(folder_path_exp_mun)):
     # Read, add year column, save back to file
     if filename.endswith('.csv'):
         df = pd.read_csv(filepath, encoding='latin1', sep=';')
-        df['ano'] = year
-        df.to_csv(filepath, index=False, encoding='latin1', sep=';')
     else:
         df = pd.read_excel(filepath)
-        df['ano'] = year
-        df.to_excel(filepath, index=False)
 
     # Load into PostgreSQL incrementally
     df.to_sql('exp_mun', engine, if_exists='append', index=False)
 
     total_rows += len(df)
     files_processed += 1
-    print(f"Updated & loaded: {filename} → ano = {year} ({len(df):,} rows)")
+    print(f"Loaded: {filename} ({len(df):,} rows)")
     del df  # Free memory immediately
 
 print(f"\nLoaded {total_rows:,} rows across {files_processed} files into table 'exp_mun'")

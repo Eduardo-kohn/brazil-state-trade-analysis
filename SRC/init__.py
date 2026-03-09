@@ -7,3 +7,5 @@ import re
 import shutil
 from datetime import datetime
 from sqlalchemy import create_engine
+import requests
+import urllib3

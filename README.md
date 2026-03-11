@@ -12,17 +12,20 @@ State-level analysis of Brazil's international trade performance using 30 years 
 
 This project was born out of two years of working with over 50 companies on their internationalization strategies — helping them enter Brazil or expand from Brazil into new markets. A recurring challenge was the lack of accessible, granular trade data to support market entry decisions. This project builds the infrastructure and analysis to address that gap.
 
-The project is structured in two phases:
+The project is structured in four phases:
 
 - **Phase 1 (Complete):** Build an automated ETL pipeline to download, clean and load 30 years of Brazilian trade data into a PostgreSQL database
 - **Phase 2 (In Progress):** Conduct state-level trade analysis covering market dependency, geographic concentration, municipality-level trade hotspots and bilateral trade flow forecasting
+- **Phase 3 (Planned):** Python visualisations using matplotlib, seaborn and plotly — charts and exploratory visuals embedded in analysis notebooks
+- **Phase 4 (Planned):** Interactive Power BI dashboard for business-facing presentation of trade insights
 
 ---
 
 ## Technical Stack
 
-- **Python** — pandas, sqlalchemy, psycopg2, requests, dotenv
+- **Python** — pandas, sqlalchemy, psycopg2, requests, dotenv, matplotlib, seaborn, plotly
 - **PostgreSQL** — local database hosting 131+ million rows of trade data
+- **Power BI** — interactive dashboard for business-facing trade insights
 - **Git/GitHub** — version control and project documentation
 
 ---
@@ -102,6 +105,26 @@ Planned analyses include:
 - **Municipality-Level Trade Hotspots** — granular analysis of emerging trade municipalities
 - **Transport Route & Logistics Analysis** — how Brazilian trade moves and how this varies by product
 - **Bilateral Trade Flow Forecasting** — time series forecasting of trade flows with key partners
+
+---
+
+## Phase 3 — Python Visualisations (Planned)
+
+Exploratory and analytical charts embedded in Jupyter notebooks, covering:
+
+- Trade flow trends over 30 years by state and product
+- Geographic concentration maps
+- State-level export competitiveness charts
+- Municipality hotspot visualisations
+- Bilateral trade flow forecasting plots
+
+Tools: matplotlib, seaborn, plotly
+
+---
+
+## Phase 4 — Power BI Dashboard (Planned)
+
+An interactive business-facing dashboard built on top of the PostgreSQL database, designed for non-technical stakeholders. Will allow dynamic filtering by state, product category, country, and year.
 
 ---
 

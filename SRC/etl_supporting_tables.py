@@ -1,5 +1,7 @@
 #################### CREDENTIALS ####################
-load_dotenv()
+from pathlib import Path
+dotenv_path = Path(r"C:\Users\e_koh\Downloads\State Analysis\brazil-state-trade-analysis\.env")
+load_dotenv(dotenv_path, override=True)
 
 DB_USER     = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
@@ -14,7 +16,13 @@ folder_path = r"C:\Users\e_koh\Downloads\State Analysis\brazil-state-trade-analy
 def read_file(filename):
     filepath = os.path.join(folder_path, filename)
     if filename.endswith('.csv'):
-        return pd.read_csv(filepath, encoding='latin1', sep=';')
+        df = pd.read_csv(filepath, encoding='latin1', sep=';')
+        # Re-encode all string columns from latin1 bytes to proper UTF-8
+        for col in df.select_dtypes(include='object').columns:
+            df[col] = df[col].apply(
+                lambda x: x.encode('latin1').decode('utf-8', errors='replace') if isinstance(x, str) else x
+            )
+        return df
     else:
         return pd.read_excel(filepath)
 
@@ -63,8 +71,11 @@ df.rename(columns={
 }, inplace=True)
 # Remove the replicated code and ' - ' from the nome_aduaneira column
 # e.g. "123456 - Porto de Santos" → "Porto de Santos"
-df['nome_aduaneira'] = df['nome_aduaneira'].str.replace(
-    df['codigo_urf'].astype(str) + ' - ', '', regex=False
+df['nome_aduaneira'] = df.apply(
+    lambda row: row['nome_aduaneira'].replace(str(row['codigo_urf']) + ' - ', '')
+    if pd.notna(row['codigo_urf']) and isinstance(row['nome_aduaneira'], str)
+    else row['nome_aduaneira'],
+    axis=1
 )
 load_to_db(df, 'urf')
 
@@ -252,4 +263,4 @@ df.rename(columns={
 }, inplace=True)
 load_to_db(df, 'uf_mun')
 
-print("\nAll supporting tables loaded successfully")
+print("\nAll supporting tables loaded successfully!")

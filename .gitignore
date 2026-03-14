@@ -6,6 +6,7 @@ Data/
 *.csv
 *.xlsx
 *.xls
+*.png
 
 # Python
 __pycache__/

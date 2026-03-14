@@ -1,0 +1,23 @@
+# Environment variables - never commit credentials
+.env
+
+# Data files - too large for version control
+Data/
+*.csv
+*.xlsx
+*.xls
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Backups created by ETL scripts
+backup_*/
+
+# VS Code
+.vscode/
